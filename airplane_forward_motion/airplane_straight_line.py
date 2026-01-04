@@ -23,13 +23,17 @@ y = np.ones(len(t))*altitute
 frame_amount=len(t)
 
 def update_plot(num):
-    return
+    plane_trajectory.set_data(x[0:num], y[0:num])
+    return plane_trajectory,
     
 fig = plt.figure(figsize=(16,9), dpi=120, facecolor=(0.8,0.8,0.8))
 gs = gridspec.GridSpec(2,2)
 
 # Subplot 1
-ax0 = fig.add_subplot(gs[0:], facecolor=(0.9,0.9,0.9))
+ax0 = fig.add_subplot(gs[0,:], facecolor=(0.9,0.9,0.9))
+plane_trajectory, = ax0.plot([],[],'g',linewidth=2)
+plt.xlim(x[0], x[-1])
+plt.ylim(0, y[0]+1)
 
 plane_ani = animation.FuncAnimation(fig, update_plot, frames=frame_amount, interval=20, blit=True)
 plt.show()
