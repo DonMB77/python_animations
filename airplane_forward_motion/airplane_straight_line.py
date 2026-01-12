@@ -32,6 +32,8 @@ for i in range(0,len(dot)):
         dot[i]=x[n-20]
 
 def update_plot(num):
+
+    # subplot 1
     plane_trajectory.set_data(dot[0:num], y[0:num])
     plane_1.set_data([x[num]-40,x[num]+20], [y[num],y[num]])
     plane_2.set_data([x[num]-20,x[num]], [y[num]+0.3,y[num]])
@@ -42,8 +44,15 @@ def update_plot(num):
     stopwatch0.set_text(str(round(t[num],1))+' hrs')
     distance_counter0.set_text(str(int(x[num]))+' km')
 
+
+    # subplot 2
+    x_distance.set_data(t[0:num],x[0:num])
+    horizontal_line.set_data([[t[0],t[num]],[x[num],x[num]]])
+    vertical_line.set_data([[t[num],t[num]],[x[0],x[num-1]]])
+
+
     return plane_trajectory,plane_1,plane_2,plane_3,plane_4,plane_5,stopwatch0,\
-    distance_counter0
+    distance_counter0,x_distance,horizontal_line,vertical_line
     
 fig = plt.figure(figsize=(16,9), dpi=120, facecolor=(0.8,0.8,0.8))
 gs = gridspec.GridSpec(2,2)
@@ -78,6 +87,24 @@ plt.xlabel("x-distance",fontsize=15)
 plt.ylabel("y-distance",fontsize=15)
 plt.title("Airplane",fontsize=20)
 plt.grid(True)
+
+
+
+# Subplot 2
+ax2 = fig.add_subplot(gs[1,0],facecolor=(0.9,0.9,0.9))
+x_distance, = ax2.plot([],[],'-b',linewidth=3,label='x=800*t')
+horizontal_line, = ax2.plot([],[],'r:o',label='horizontal line')
+vertical_line, = ax2.plot([],[],'g:o',label='vertical line')
+plt.xlim(t[0],t[-1])
+plt.ylim(x[0],x[-1])
+plt.xticks(np.arange(t[0],t[-1]+dt,t[-1]/4))
+plt.yticks(np.arange(x[0],x[-1]+1,x[-1]/4))
+plt.xlabel('time [hrs]',fontsize=15)
+plt.ylabel('x-distance [km]',fontsize=15)
+plt.title('x-distance vs time',fontsize=15)
+plt.grid(True)
+plt.legend(loc='upper left', fontsize='x-large')
+
 
 plane_ani = animation.FuncAnimation(fig, update_plot, frames=frame_amount, interval=20, blit=True)
 plt.show()
