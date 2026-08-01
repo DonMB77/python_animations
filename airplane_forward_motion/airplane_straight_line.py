@@ -41,6 +41,7 @@ def update_plot(num):
     plane_4.set_data([x[num]-40,x[num]-30], [y[num]+0.15,y[num]])
     plane_5.set_data([x[num]-40,x[num]-30], [y[num]-0.15,y[num]])
     
+    
     stopwatch0.set_text(str(round(t[num],1))+' hrs')
     distance_counter0.set_text(str(int(x[num]))+' km')
 
@@ -65,6 +66,7 @@ plane_2, = ax0.plot([],[],'k',linewidth=5)
 plane_3, = ax0.plot([],[],'k',linewidth=5)
 plane_4, = ax0.plot([],[],'k',linewidth=3)
 plane_5, = ax0.plot([],[],'k',linewidth=3)
+ax0_vertical = ax0.plot([],[],'k:o',linewidth=2)
 
 # Draw houses
 house_1 = ax0.plot([100,100],[0,1.0],'k',linewidth=7)
